@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### AI Logs ###
+.person/logs/*.log

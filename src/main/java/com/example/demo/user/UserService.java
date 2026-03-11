@@ -13,7 +13,8 @@ public class UserService {
 
     @Transactional
     public void join(UserRequest.Join reqDTO) {
-        User user = User.builder()
+        // 1. DTO 데이터를 기반으로 User 엔티티 생성 (Builder 패턴 사용)
+        var user = User.builder()
                 .username(reqDTO.getUsername())
                 .password(reqDTO.getPassword())
                 .email(reqDTO.getEmail())
@@ -22,6 +23,8 @@ public class UserService {
                 .detailAddress(reqDTO.getDetailAddress())
                 .extraAddress(reqDTO.getExtraAddress())
                 .build();
+        
+        // 2. 리포지토리를 통해 DB에 저장
         userRepository.save(user);
     }
 }
