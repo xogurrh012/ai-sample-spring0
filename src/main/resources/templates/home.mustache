@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Home</h1>
-</body>
-</html>
+{{> layout/header}}
+
+<div class="container mt-5">
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">메인 페이지</h1>
+            <p class="col-md-8 fs-4">Spring Boot와 Mustache로 구성된 블로그 프로젝트입니다. 레이아웃 시스템이 성공적으로 적용되었습니다.</p>
+            <hr class="my-4">
+            <p>다양한 기능을 확인해보세요.</p>
+            <a class="btn btn-primary btn-lg" href="/board/save-form" role="button">글쓰기 시작하기</a>
+        </div>
+    </div>
+</div>
+
+{{> layout/footer}}
