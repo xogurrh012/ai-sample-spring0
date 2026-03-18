@@ -1,109 +1,130 @@
 {{> layout/header}}
 
-<div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card p-4 shadow-lg border-0 rounded-4">
-                <div class="card-body">
-                    <h2 class="text-center mb-4 fw-bold text-primary">회원가입</h2>
-                    <hr class="mb-4">
+<div class="container d-flex justify-content-center align-items-center min-vh-100 py-5">
+    <div class="card shadow border-0 rounded-4 overflow-hidden" style="max-width: 500px; width: 100%;">
+        <div class="card-header bg-primary py-4 text-center border-0">
+            <h3 class="text-white fw-bold mb-0">회원가입</h3>
+            <p class="text-white-50 small mb-0 mt-2">서비스 이용을 위해 정보를 입력해주세요</p>
+        </div>
+        <div class="card-body p-4 p-md-5">
+            <form action="/join" method="post" id="join-form" novalidate>
+                <!-- 아이디 입력 및 중복 체크 -->
+                <div class="mb-4">
+                    <label for="username" class="form-label fw-bold text-dark small">아이디</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-user"></i></span>
+                        <input type="text" name="username" class="form-control bg-light border-start-0 ps-0" id="username" placeholder="4~20자 이내" required minlength="4" maxlength="20">
+                        <button type="button" id="btn-check-username" class="btn btn-outline-primary fw-bold px-3" onclick="checkUsername()">중복 체크</button>
+                    </div>
+                    <div id="username-msg" class="form-text mt-2 small"></div>
+                </div>
 
-                    <form action="/join" method="post">
-                        <!-- 아이디 입력 및 중복 체크 -->
-                        <div class="mb-3">
-                            <label for="username" class="form-label fw-semibold">아이디</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-user text-muted"></i></span>
-                                <input type="text" name="username" class="form-control border-start-0" id="username" placeholder="아이디를 입력하세요" required>
-                                <button type="button" class="btn btn-outline-primary" onclick="checkUsername()">중복 체크</button>
-                            </div>
-                            <div id="username-msg" class="form-text mt-2"></div>
-                        </div>
+                <!-- 비밀번호 -->
+                <div class="mb-4">
+                    <label for="password" class="form-label fw-bold text-dark small">비밀번호</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" name="password" class="form-control bg-light border-start-0 ps-0" id="password" placeholder="4~20자 이내" required minlength="4" maxlength="20">
+                    </div>
+                    <div class="form-text mt-1 small text-muted">안전한 비밀번호를 설정해주세요 (4~20자)</div>
+                </div>
 
-                        <!-- 비밀번호 -->
-                        <div class="mb-3">
-                            <label for="password" class="form-label fw-semibold">비밀번호</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-lock text-muted"></i></span>
-                                <input type="password" name="password" class="form-control border-start-0" id="password" placeholder="비밀번호를 입력하세요" required>
-                            </div>
-                        </div>
-
-                        <!-- 이메일 -->
-                        <div class="mb-4">
-                            <label for="email" class="form-label fw-semibold">이메일</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-envelope text-muted"></i></span>
-                                <input type="email" name="email" class="form-control border-start-0" id="email" placeholder="이메일을 입력하세요" required>
-                            </div>
-                        </div>
-
-                        <div class="d-grid">
-                            <button type="submit" id="btn-submit" class="btn btn-primary btn-lg fw-bold py-3 shadow-sm rounded-3">회원가입 완료</button>
-                        </div>
-                    </form>
-
-                    <div class="text-center mt-4">
-                        <p class="text-muted small">이미 계정이 있으신가요? <a href="/login-form" class="text-primary text-decoration-none fw-semibold">로그인</a></p>
+                <!-- 이메일 -->
+                <div class="mb-4">
+                    <label for="email" class="form-label fw-bold text-dark small">이메일 주소</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-envelope"></i></span>
+                        <input type="email" name="email" class="form-control bg-light border-start-0 ps-0" id="email" placeholder="example@email.com" required>
                     </div>
                 </div>
+
+                <div class="d-grid mt-5">
+                    <button type="submit" id="btn-submit" class="btn btn-primary btn-lg fw-bold py-3 rounded-3 shadow-sm transition-all">
+                        가입하기
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center mt-4">
+                <span class="text-muted small">이미 계정이 있으신가요?</span>
+                <a href="/login-form" class="text-primary text-decoration-none fw-bold small ms-1">로그인</a>
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .transition-all { transition: all 0.2s ease-in-out; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(25, 127, 230, 0.3); }
+    .form-control:focus { background-color: #fff !important; border-color: var(--bs-primary); box-shadow: 0 0 0 0.25rem rgba(25, 127, 230, 0.1); }
+    .input-group-text { border-color: #dee2e6; }
+</style>
+
 <script>
-    // 아이디 중복 체크 여부 상태 관리
     let isUsernameChecked = false;
 
     async function checkUsername() {
-        const username = document.querySelector("#username").value;
+        const usernameInput = document.querySelector("#username");
+        const username = usernameInput.value.trim();
         const msgElement = document.querySelector("#username-msg");
-        const btnSubmit = document.querySelector("#btn-submit");
+        const btnCheck = document.querySelector("#btn-check-username");
 
-        if (!username || username.trim() === "") {
-            msgElement.innerText = "아이디를 입력해주세요.";
-            msgElement.classList.add("text-danger");
-            msgElement.classList.remove("text-success");
+        if (username.length < 4 || username.length > 20) {
+            msgElement.innerText = "아이디는 4~20자 이내여야 합니다.";
+            msgElement.className = "form-text mt-2 small text-danger";
+            usernameInput.focus();
             return;
         }
 
         try {
-            // Fetch API를 사용하여 서버와 비동기 통신
+            btnCheck.disabled = true;
+            btnCheck.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+
             const response = await fetch(`/api/check-username?username=${username}`);
-            const result = await response.json(); // Resp 객체 구조: {status: 200, msg: "성공", body: true/false}
+            const result = await response.json();
 
             if (result.body === true) {
-                // 사용 가능
                 msgElement.innerText = "사용 가능한 아이디입니다.";
-                msgElement.classList.remove("text-danger");
-                msgElement.classList.add("text-success");
+                msgElement.className = "form-text mt-2 small text-success";
                 isUsernameChecked = true;
+                usernameInput.classList.remove("is-invalid");
+                usernameInput.classList.add("is-valid");
             } else {
-                // 중복됨
-                msgElement.innerText = "이미 존재하는 아이디입니다.";
-                msgElement.classList.remove("text-success");
-                msgElement.classList.add("text-danger");
+                msgElement.innerText = "이미 사용 중인 아이디입니다.";
+                msgElement.className = "form-text mt-2 small text-danger";
                 isUsernameChecked = false;
+                usernameInput.classList.add("is-invalid");
             }
         } catch (error) {
             console.error("중복 체크 중 오류 발생:", error);
             msgElement.innerText = "서버 통신 중 오류가 발생했습니다.";
-            msgElement.classList.add("text-danger");
+            msgElement.className = "form-text mt-2 small text-danger";
+        } finally {
+            btnCheck.disabled = false;
+            btnCheck.innerText = "중복 체크";
         }
     }
 
-    // 아이디 입력값이 변경되면 다시 중복 체크 하도록 초기화
     document.querySelector("#username").addEventListener("input", function() {
         isUsernameChecked = false;
+        this.classList.remove("is-valid", "is-invalid");
         document.querySelector("#username-msg").innerText = "";
     });
 
-    // 가입 폼 제출 시 최종 확인
-    document.querySelector("form").addEventListener("submit", function(e) {
+    document.querySelector("#join-form").addEventListener("submit", function(e) {
         if (!isUsernameChecked) {
             e.preventDefault();
             alert("아이디 중복 체크를 먼저 진행해주세요.");
+            document.querySelector("#username").focus();
+            return;
+        }
+
+        const password = document.querySelector("#password").value;
+        if (password.length < 4 || password.length > 20) {
+            e.preventDefault();
+            alert("비밀번호는 4~20자 이내여야 합니다.");
+            document.querySelector("#password").focus();
+            return;
         }
     });
 </script>

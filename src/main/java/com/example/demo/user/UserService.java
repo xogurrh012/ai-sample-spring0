@@ -1,5 +1,6 @@
 package com.example.demo.user;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +11,21 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    /**
+     * 회원 가입
+     * @param joinDTO 회원가입 정보
+     */
+    @Transactional
+    public void join(UserRequest.JoinDTO joinDTO) {
+        // 비밀번호 암호화
+        String encPassword = passwordEncoder.encode(joinDTO.getPassword());
+        joinDTO.setPassword(encPassword);
+
+        // 엔티티 변환 후 저장
+        userRepository.save(joinDTO.toEntity());
+    }
 
     /**
      * 아이디 중복 체크 (AJAX)
